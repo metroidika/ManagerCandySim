@@ -20,9 +20,9 @@ public class Main {
 		System.out.println("if you run us into the ground or they pull their support, you're fired. And if half the rumors I've heard about the Nougat family");
 		System.out.println("are true, being out of a job'll be the least of your concerns!");
 		System.out.println();
+		Scanner myObj = new Scanner(System.in);  // Create a Scanner object
 		while((totMon >= 0 && adTot > 0)||redo) {
 			redo = false;
-			Scanner myObj = new Scanner(System.in);  // Create a Scanner object
 		    System.out.println("You have $"+(totMon)+" at your disposal. How much would you like to spend on advertising your sponsor? (This will increase your Sponsor's Happiness)");
             adMon = myObj.nextInt(); 
             System.out.println("You have $"+(totMon-adMon)+" at your disposal. How much would you like to spend on training your Team? (This will increase the odds of Winning Games throughout the season)");
@@ -32,9 +32,10 @@ public class Main {
             System.out.println("You have spent $"+adMon+" on Advertising, $"+trainMon+" on Training, and $"+prMon+" on PR Campaigns, with a total of $"+(totMon-adMon-trainMon-prMon)+" left over. Input Y if you are sure, and anything else if you'd like to redo your finance allocations.");
             temp = myObj.next();
             
+            
             if(temp.equals("Y")||temp.equals("y")) {
             	double training = trainMon/season;
-            	winLossRatio = (int)(16*((5000*Math.random()) + training)/5000);
+            	winLossRatio = (int)(16*((5000*Math.random()) + (training/1000*season))/5000);
             	if(winLossRatio > 16) {
             		winLossRatio = 16;
             	}
@@ -43,7 +44,7 @@ public class Main {
             	
             	adTot += (adMon/(50*season)-(25*season)) + (10*(winLossRatio-8)) + (prTot/4);
             	
-            	totMon += totMon - prMon - adMon - trainMon + (100*season*adTot);
+            	totMon += totMon - prMon - adMon - trainMon + (100*adTot);
             	
             	System.out.println("Season "+season+" results:");
             	System.out.println("Games Won: "+winLossRatio+ " out of 16");
@@ -88,6 +89,7 @@ public class Main {
             	redo = true;
             }
 		}
+		myObj.close();
 	}
 
 }
